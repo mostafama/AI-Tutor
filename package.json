@@ -1,5 +1,5 @@
 {
-  "name": "blues-stack-template",
+  "name": "COSC_448_Blues_Template-7b75",
   "private": true,
   "sideEffects": false,
   "scripts": {
@@ -11,7 +11,6 @@
     "dev:remix": "remix dev --manual -c \"node --require ./mocks --watch-path ./build/server.js --watch ./build/server.js\"",
     "docker": "docker compose up -d",
     "format": "prettier --write .",
-    "format:repo": "npm run format && npm run lint -- --fix",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "setup": "prisma generate && prisma migrate deploy && prisma db seed",
     "start": "cross-env NODE_ENV=production node ./build/server.js",
@@ -35,7 +34,7 @@
     "@prisma/client": "^4.16.2",
     "@remix-run/css-bundle": "*",
     "@remix-run/express": "*",
-    "@remix-run/node": "*",
+    "@remix-run/node": "^2.5.1",
     "@remix-run/react": "*",
     "bcryptjs": "^2.4.3",
     "chokidar": "^3.5.3",
