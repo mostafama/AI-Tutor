@@ -21,6 +21,15 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
   const email = formData.get("email");
   const password = formData.get("password");
+  let userType = formData.get("userType");
+  if (userType !== "STUDENT" && userType !== "INSTRUCTOR") {
+    // Handle the error when the user type is invalid
+    return json(
+      { errors: { email: null, password: null, userType: "Invalid user type" } },
+      { status: 400 },
+    );
+  }
+
   const redirectTo = safeRedirect(formData.get("redirectTo"), "/");
 
   if (!validateEmail(email)) {
@@ -57,7 +66,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     );
   }
 
-  const user = await createUser(email, password);
+  const user = await createUser(email, password, userType);
 
   return createUserSession({
     redirectTo,
@@ -140,6 +149,31 @@ export default function Join() {
                   {actionData.errors.password}
                 </div>
               ) : null}
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Select your role:</label>
+            <div className="mt-1">
+              <label className="inline-flex items-center">
+                <input
+                  type="radio"
+                  name="userType"
+                  value="STUDENT"
+                  className="form-radio"
+                  required // Ensures a selection is made
+                />
+                <span className="ml-2">Student</span>
+              </label>
+              <label className="inline-flex items-center ml-6">
+                <input
+                  type="radio"
+                  name="userType"
+                  value="INSTRUCTOR"
+                  className="form-radio"
+                />
+                <span className="ml-2">Instructor</span>
+              </label>
             </div>
           </div>
 

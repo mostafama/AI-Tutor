@@ -7,9 +7,13 @@ import { json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData, useSearchParams } from "@remix-run/react";
 import { useEffect, useRef } from "react";
 
-import { verifyLogin } from "~/models/user.server";
+import { verifyLogin, getUserType } from "~/models/user.server";
 import { createUserSession, getUserId } from "~/session.server";
 import { safeRedirect, validateEmail } from "~/utils";
+
+interface LoginPageProps {
+  redirectPath: string;
+}
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userId = await getUserId(request);
@@ -21,7 +25,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
   const email = formData.get("email");
   const password = formData.get("password");
-  const redirectTo = safeRedirect(formData.get("redirectTo"), "/");
   const remember = formData.get("remember");
 
   if (!validateEmail(email)) {
@@ -46,6 +49,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   }
 
   const user = await verifyLogin(email, password);
+  
 
   if (!user) {
     return json(
@@ -53,6 +57,19 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       { status: 400 },
     );
   }
+
+  const userType = await getUserType(email);
+
+  // below code can differentiate homepage of student and professor
+  
+  let redirectPath = "/";
+  if (userType === "STUDENT") {
+    redirectPath = "/home"; // Adjust the path for student homepage
+  } else if (userType === "INSTRUCTOR") {
+    redirectPath = "/home"; // Adjust the path for professor homepage
+  }
+
+  const redirectTo = redirectPath;
 
   return createUserSession({
     redirectTo,
@@ -64,9 +81,11 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 export const meta: MetaFunction = () => [{ title: "Login" }];
 
-export default function LoginPage() {
+
+
+
+export default function LoginPage({redirectPath}:LoginPageProps) {
   const [searchParams] = useSearchParams();
-  const redirectTo = searchParams.get("redirectTo") || "/notes";
   const actionData = useActionData<typeof action>();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -138,7 +157,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <input type="hidden" name="redirectTo" value={redirectTo} />
+          <input type="hidden" name="redirectTo" value={redirectPath} />
           <button
             type="submit"
             className="w-full rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400"

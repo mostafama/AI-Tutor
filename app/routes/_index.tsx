@@ -26,11 +26,11 @@ export default function Index() {
               </span>
             </h1>
             <span className="mx-auto mt-6 max-w-lg text-center text-xl sm:max-w-3xl" style={{ color: "beige" }}>
-              Academic AI: Programming Made Clear and Simple
+              Programming Made Clear and Simple
             </span>
             {user ? (
               <Link
-                to="/notes"
+                to="/home"
                 className="mt-5 rounded-md bg-white px-4 py-2 text-base font-medium text-blue-700 shadow-sm hover:bg-blue-50"
               >
                 Continue as {user.email}
