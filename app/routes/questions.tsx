@@ -136,9 +136,10 @@ export default function QuestionsPage() {
               name="instructionId"
               defaultValue={question.instructionId || (defaultInstruction ? defaultInstruction.id : "")}
               onChange={(e) => e.currentTarget.form?.submit()}
+              className="mt-1 block w-full border border-gray-300 p-2 rounded-md shadow-sm"
             >
               {instructions.map((instruction: Instruction) => (
-                <option key={instruction.id} value={instruction.id} selected={instruction.id === question.instructionId}>
+                <option key={instruction.id} value={instruction.id}>
                   {instruction.title}
                 </option>
               ))}

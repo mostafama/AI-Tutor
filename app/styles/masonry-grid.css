@@ -1,0 +1,45 @@
+/* Base Masonry Grid Styles */
+.my-masonry-grid {
+    display: flex;
+    margin-left: -40px; /* Adjust the gap between columns */
+    width: auto;
+    max-width: 100%; /* Full width of the column */
+    padding: 1em; /* Adjust padding as needed */
+    display: flex; /* Use flexbox to center the content div */
+    justify-content: center; /* This centers the inner div horizontally */
+  }
+  .my-masonry-grid_column {
+    padding-left: 30px; /* Space out the columns */
+    background-clip: padding-box;
+  }
+
+  .content-wrapper {
+  max-width: 90%; /* Adjust this value as needed */
+  margin: 0 auto; /* This will maintain the centered position */
+}
+
+  .my-masonry-grid_column pre code {
+    white-space: pre-wrap; /* Allows code to wrap and only take necessary space */
+    word-wrap: break-word; /* Breaks long words to prevent horizontal scrolling */
+    padding: 0.5em; /* Adjust padding to reduce space */
+    display: block; /* Make sure code blocks are block level for proper whitespace handling */
+  }
+  
+  /* Adjusting item spacing */
+  .my-masonry-grid_column > div {
+    margin-bottom: 30px; /* Adjust the gap between items */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 700px) {
+    .my-masonry-grid {
+      margin-left: -15px;
+    }
+    .my-masonry-grid_column {
+      padding-left: 15px;
+    }
+    .my-masonry-grid_column > div {
+      margin-bottom: 15px;
+    }
+  }
+

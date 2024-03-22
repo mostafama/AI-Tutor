@@ -51,6 +51,7 @@ model Question {
   userId        String?
   instructionId String?       // Removed @unique
   instruction   Instruction?  @relation(fields: [instructionId], references: [id], onDelete: SetNull)
+  tags          Tag[]     
 }
 
 model Instruction {
@@ -74,4 +75,10 @@ model File {
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Tag {
+  id         Int        @id @default(autoincrement())
+  name       String     @unique
+  questions  Question[] 
 }

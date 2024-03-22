@@ -9,7 +9,6 @@ import { getInstructionList, createInstruction, deleteInstruction, setDefaultIns
 import { LoaderFunction, json } from "@remix-run/node";
 import { Question, getQuestion } from '~/models/question.server';
 
-
 export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
   const defaultInstruction = await getDefaultInstruction();
