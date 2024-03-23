@@ -1,7 +1,7 @@
 // src/components/Chat.tsx
 import React, { useEffect, useState } from "react";
 import Message from "./Message";
-import OpenAI from "openai";
+import OpenAI from 'openai';
 import { MessageDto } from "./MessageDto";
 import { Form, Link, useLoaderData, useSearchParams } from "@remix-run/react";
 import { useUser } from "~/utils";
