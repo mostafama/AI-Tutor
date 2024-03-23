@@ -52,9 +52,11 @@ export default function NotesPage() {
               <Link to="/instructions" className="block p-4 text-xl text-blue-500">
                 + New Instruction
               </Link>
+              
               <hr />
             </>
           )}
+          <Link to="/feedback" className="block p-4 text-xl text-blue-500">+ New Feedback</Link>
         </div>
 
         <div className="flex-1 p-6">

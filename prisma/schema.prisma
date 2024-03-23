@@ -82,3 +82,17 @@ model Tag {
   name       String     @unique
   questions  Question[] 
 }
+
+model Feedback {
+  id                  Int     @id @default(autoincrement())
+  relevanceAccuracy   Int     // 1-5 scale
+  easeOfUse           Int     // 1-5 scale
+  learningOutcomes    Int     // 1-5 scale
+  feedbackAssessment  Int     // 1-5 scale
+  userSatisfaction    Int     // 1-5 scale
+  recommendationLikely Int    // 1-5 scale
+  additionalComments  String? // Optional field for any additional comments
+  createdAt           DateTime @default(now())
+
+  @@map("feedbacks")
+}

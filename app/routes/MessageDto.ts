@@ -6,4 +6,4 @@ export class MessageDto {
     this.isUser = isUser;
     this.content = content;
   }
-}
+};
