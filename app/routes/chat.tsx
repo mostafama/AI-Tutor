@@ -11,8 +11,6 @@ import { Question, getQuestion } from '~/models/question.server';
 import hljs from "highlight.js";
 import 'highlight.js/styles/github.css';
 
-
-
 export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
   const defaultInstruction = await getDefaultInstruction();
