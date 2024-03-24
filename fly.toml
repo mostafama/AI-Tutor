@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for ai-chat-bot-cosc448-polished-water-1450 on 2024-03-24T02:41:52-07:00
+# fly.toml app configuration file generated for ai-chat-bot-cosc448-polished-water-1450 on 2024-03-24T16:00:50-07:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -62,9 +62,7 @@ kill_timeout = '5s'
     tls_skip_verify = false
 
 [[vm]]
-  memory = '1gb'
-  cpu_kind = 'shared'
-  cpus = 1
+  size = 'performance-1x'
 
 [[metrics]]
   port = 8081

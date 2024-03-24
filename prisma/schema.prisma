@@ -15,7 +15,7 @@ enum UserType {
 model User {
   id            String         @id @default(cuid())
   email         String         @unique
-  userType      UserType
+  userType      UserType?
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   notes         Note[]
