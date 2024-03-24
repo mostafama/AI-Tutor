@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for aicademy-sparkling-haze-1709 on 2024-03-24T02:12:14-07:00
+# fly.toml app configuration file generated for ai-chat-bot-cosc448-polished-water-1450 on 2024-03-24T02:41:52-07:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'aicademy-sparkling-haze-1709'
+app = 'ai-chat-bot-cosc448-polished-water-1450'
 primary_region = 'sea'
 kill_signal = 'SIGINT'
 kill_timeout = '5s'

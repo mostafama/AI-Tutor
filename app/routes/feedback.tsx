@@ -27,11 +27,26 @@ export const action: ActionFunction = async ({ request }) => {
     additionalComments: form.get("additionalComments")?.toString() || "",
   };
 
+  const errors: Record<string, string> = {};
+  const requiredFields = ['relevanceAccuracy', 'easeOfUse', 'learningOutcomes', 'feedbackAssessment', 'userSatisfaction', 'recommendationLikely'];
+  requiredFields.forEach(field => {
+    const value = form.get(field);
+    if (value === null || value.toString().trim() === "" || isNaN(Number(value))) {
+      errors[field] = "This field is required and must be a valid number.";
+    }
+  });
+
+  if (Object.keys(errors).length > 0) {
+    // Return errors to be displayed
+    return errors;
+  }
+
   try {
     await createFeedback(feedbackData);
     return redirect('/confirmation');
   } catch (error) {
     console.error("Feedback submission failed", error);
+    // Redirect to a generic error page
     return redirect("/error");
   }
 };
@@ -61,6 +76,7 @@ const FeedbackQuestion: React.FC<FeedbackQuestionProps> = ({ questionText, name 
 
 export default function FeedbackForm() {
   const user = useUser();
+  
   return (
     <div className="flex h-full min-h-screen flex-col" >
       <header className="flex items-center justify-between bg-slate-800 p-4 text-white">
@@ -84,11 +100,21 @@ export default function FeedbackForm() {
         </Form>
       </header>
       
-      <Form method="post" className="bg-white p-6 rounded-lg shadow-lg" style={{ width: "50%", minWidth: "300px", marginTop: "20px" }}> {/* Styling the form */}
-        <h2 style={{ marginBottom: "20px", textAlign: "center", fontSize: "24px", fontWeight: "bold" }}>Submit Your Feedback</h2>
+      <Form
+  method="post"
+  className="bg-white p-6 rounded-lg shadow-lg"
+  style={{
+    width: "50%",
+    minWidth: "300px",
+    marginTop: "20px",
+    marginLeft: "auto",
+    marginRight: "auto", // Automatically adjusts left and right margins
+  }}
+> {/* Styling the form */}
+        <h2 style={{ marginBottom: "20px", textAlign: "left", fontSize: "24px", fontWeight: "bold" }}>Submit Your Feedback</h2>
 
         <FeedbackQuestion
-          questionText="The content provided is relevant and accurate."
+          questionText="The content provided is relevant to my course material."
           name="relevanceAccuracy"
         />
 
@@ -103,7 +129,7 @@ export default function FeedbackForm() {
         />
 
         <FeedbackQuestion
-          questionText="The feedback and assessments provided by the tool are helpful."
+          questionText="The feedback and guidance provided by the tool are helpful."
           name="feedbackAssessment"
         />
 
