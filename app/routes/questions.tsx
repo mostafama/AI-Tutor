@@ -5,8 +5,10 @@ import { requireUserId } from "~/session.server";
 import { useUser } from "~/utils";
 import { getQuestionList, createQuestion, deleteQuestion, assignInstruction } from "~/models/question.server";
 import { createInstruction, getInstructionList, getDefaultInstruction } from "~/models/instruction.server";
+import { assignTagsToQuestion, createTag, getTagList } from "~/models/tag.server";
 import { Question } from "@prisma/client";
 import { TrashIcon } from "@heroicons/react/20/solid";
+import { prisma } from "~/db.server";
 
 interface Instruction {
     id: string;
@@ -28,54 +30,65 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export const action: ActionFunction = async ({ request }) => {
-    const userId = await requireUserId(request);
-    const formData = await request.formData();
-    const actionType = formData.get('_action');
-    let instructionId = formData.get('instructionId');
-  
-    switch (actionType) {
+  const userId = await requireUserId(request);
+  const formData = await request.formData();
+  const actionType = formData.get('_action');
+
+  switch (actionType) {
       case 'delete':
-        const deleteId = formData.get('questionId');
-        if (typeof deleteId === 'string') {
-          await deleteQuestion({ id: deleteId, userId });
-          return redirect('/questions');
-        }
-        break;
-  
-        case "assignInstruction":
-            const questionId = formData.get("questionId");
-            const selectedInstructionId = formData.get("instructionId");
-            if (typeof questionId === "string" && typeof selectedInstructionId === "string") {
-                await assignInstruction({ questionId, instructionId: selectedInstructionId });
-                return redirect("/questions");
-            }
-            break;
-  
-            default:
-                const title = formData.get('title');
-                const body = formData.get('content');
-                const instructions  = await getInstructionList()
-                const defaultInstruction = await getDefaultInstruction();
-                const defaultInstructionId = defaultInstruction?.id;
-                let instructionId = formData.get('instructionId');
-                // Assuming you've fetched defaultInstructionId from somewhere, e.g., your form or loader data
-                if (instructionId === "default" && defaultInstructionId != null) {
-                    // Replace 'defaultInstructionId' with the actual ID of the default instruction
-                    instructionId = defaultInstructionId;
-                }
-                if (typeof title === 'string' && typeof body === 'string' && instructionId !== 'new') {
-                    await createQuestion({
-                        title,
-                        body,
-                        userId,
-                        instructionId: instructionId?.toString() // Here we ensure the instruction ID is correctly assigned
-                    });
-                    return redirect('/questions');
-                }
-                break;
-    }
-  
-    return null;
+          const deleteId = formData.get('questionId');
+          if (typeof deleteId === 'string') {
+              await deleteQuestion({ id: deleteId, userId });
+              return redirect('/questions');
+          }
+          break;
+
+      case "assignInstruction":
+          const questionIdAssign = formData.get("questionId");
+          const selectedInstructionId = formData.get("instructionId");
+          if (typeof questionIdAssign === "string" && typeof selectedInstructionId === "string") {
+              await assignInstruction({ questionId: questionIdAssign, instructionId: selectedInstructionId });
+              return redirect("/questions");
+          }
+          break;
+
+      default:
+          const title = formData.get('title');
+          const body = formData.get('content');
+          const tagInput = formData.get('tags');
+          const instructionId = formData.get('instructionId') === "default" ? (await getDefaultInstruction())?.id : formData.get('instructionId');
+          
+          if (typeof title === 'string' && typeof body === 'string' && instructionId) {
+              // Assuming createQuestion returns the newly created question object
+              const question = await createQuestion({
+                  title,
+                  body,
+                  userId,
+                  instructionId: instructionId.toString(), // Ensure instruction ID is correctly assigned
+              });
+
+              if (typeof tagInput === 'string' && tagInput.trim() !== '') {
+                  const tags = tagInput.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
+                  const tagIds = [];
+          
+                  for (const tagName of tags) {
+                      let tag = await prisma.tag.findUnique({ where: { name: tagName } });
+                      if (!tag) {
+                          tag = await createTag({ name: tagName });
+                      }
+                      tagIds.push(tag.id);
+                  }
+
+                  // Assuming assignTagsToQuestion expects a string for questionId
+                  await assignTagsToQuestion({ questionId: question.id, tagIds });
+              }
+
+              return redirect('/questions');
+          }
+          break;
+  }
+
+  return null;
 };
 
 export default function QuestionsPage() {
@@ -176,6 +189,15 @@ export default function QuestionsPage() {
                                         </option>
                                     ))}
                                 </select>
+                            </div>
+                            <div>
+                              <label htmlFor="tags" className="block text-sm font-medium text-gray-700">Tags</label>
+                              <textarea
+                                name="tags"
+                                id="tags"
+                                placeholder="Enter tags, separated by commas"
+                                className="mt-1 block w-full border border-gray-300 p-2 rounded-md shadow-sm"
+                              ></textarea>
                             </div>
                             <button type="submit" className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
                                 Submit Question
