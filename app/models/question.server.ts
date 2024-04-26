@@ -61,6 +61,13 @@ export function getQuestion({
   });
 }
 
+export function getQuestionByTagId(tagId: number) {
+  return prisma.tag.findUnique({
+    where: { id: tagId },
+    include: { questions: true },
+  });
+}
+
 export function assignInstruction({
   questionId,
   instructionId,

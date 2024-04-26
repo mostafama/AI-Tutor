@@ -3,7 +3,7 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'ai-chatbot'
+app = 'to-deploy'
 primary_region = 'sea'
 kill_signal = 'SIGINT'
 kill_timeout = '5s'
@@ -18,7 +18,7 @@ kill_timeout = '5s'
 
 [env]
   METRICS_PORT = '8081'
-  PORT = '8080'
+  PORT = '3000'
   FLY_API_TOKEN = 'fo1_bgUgzvZ-VvZUKos3jzB-pEij4P5zJ_a933jRXnhiM-s'
 
 [http_service]

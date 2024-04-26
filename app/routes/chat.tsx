@@ -49,21 +49,21 @@ const Chat: React.FC = () => {
   const user = useUser();
   const { questionBody, instructionContent } = useLoaderData<typeof loader>();
 
-  useEffect(() => {
-    // Fetch files when the component mounts
-    const fetchFiles = async () => {
-      try {
-        const response = await fetch('/files'); 
-        if (!response.ok) throw new Error('Failed to fetch files');
-        const data = await response.json();
-        setFiles(data.files); // Assume your API returns an object with a 'files' array
-      } catch (error) {
-        console.error('Error fetching files:', error);
-      }
-    };
+  // useEffect(() => {
+  //   // Fetch files when the component mounts
+  //   const fetchFiles = async () => {
+  //     try {
+  //       const response = await fetch('/files'); 
+  //       if (!response.ok) throw new Error('Failed to fetch files');
+  //       const data = await response.json();
+  //       setFiles(data.files); // Assume your API returns an object with a 'files' array
+  //     } catch (error) {
+  //       console.error('Error fetching files:', error);
+  //     }
+  //   };
 
-    fetchFiles();
-  }, []);
+  //   fetchFiles();
+  // }, []);
 
   useEffect(() => {
     initChatBot();
@@ -85,7 +85,7 @@ const Chat: React.FC = () => {
 
   const initChatBot = async () => {
     const openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY || "",
+      apiKey: "", 
       dangerouslyAllowBrowser: true,
     });
     

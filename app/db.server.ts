@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
 import invariant from "tiny-invariant";
+import { PrismaClient } from "@prisma/client";
 
 import { singleton } from "./singleton.server";
 
