@@ -1,220 +1,157 @@
-# Remix Blues Stack
+#### 1. Video Walkthrough
 
-![The Remix Blues Stack](https://repository-images.githubusercontent.com/461012689/37d5bd8b-fa9c-4ab0-893c-f0a199d5012d)
+#### 2.	Project Overview
 
-Learn more about [Remix Stacks](https://remix.run/stacks).
+This project aims to create an AI chatbot specifically designed to support instructors in teaching introductory computer science topics, with potential adaptability to other teaching contexts. Leveraging the OpenAI API, particularly ChatGPT models, this chatbot operates according to predefined instructions provided by instructors. Its primary role involves engaging with students and providing guidance and explanations within the framework set by the instructor. Notably, it's tailored to avoid default responses that simply offer direct answers, creating a more interactive and personalized learning experience for students. Essentially, it serves as a virtual teaching assistant, enhancing the educational process through dynamic interaction and support.
 
+#### 3.	User Groups and Scenarios
+
+Registered User - Instructors
+Scenario: Josh, a professor at UBC, teaches computer science. Aware of the increasing popularity of AI assistance software, he recognizes that his students also use them. While Josh encourages his students to utilize the new technology, he prefers that AI doesn't offer direct answers. Instead, he wants it to provide guidance, helping students understand the fundamental concepts.
+
+Registered User - Students
+Scenario: John, a first-year computer science student, attends an introductory Java programming class. He frequently encounters assignments in his labs that leave him feeling uncertain. John seeks clarification on certain concepts to solve these problems better.
+
+#### 4.	Software Requirements
+User Authentication: The application must support user registration, login, and logout functionalities. 
+
+Question Insertion / Deletion: The application should allow instructor user groups to add or delete new questions to the system.
+
+Tag Insertion: The application should allow the instructor user group to assign tags to newly inserted questions.
+
+Question Filter: The application should allow all user groups to filter questions based on tags on the homepage.
+
+Instruction Insertion/Deletion: The instructor user group needs to be able to add and delete instructions.
+
+Assign Instruction to Question: The instructor needs to be able to assign a specific instruction to a question. When the chatbot answers the question, it will remember the instruction.
+
+Chatbot Interaction: All user groups will be able to interact with the chatbot, which will allow them to communicate with the OpenAI ChatGPT model.
+
+Feedback Collection: The application will have a page to ask for user experience. 
+
+File Upload: The instructor user group should be able to upload lecture notes or slides and assign questions to certain files so the chatbot can answer questions using these uploaded files as a reference.
+
+Statistic Display: The instructor user group should be able to view user feedback statics. 
+
+Usability: The application needs to be easy to use, with an intuitive interface that makes it easy for the user to navigate and perform actions.
+
+Performance: The system should load pages and process user requests as quickly as possible to ensure a smooth user experience
+
+Security: Encryption for sensitive information and compliance with relevant data protection guidelines.
+
+Reliability: The chatbot should be able to handle user requests simultaneously without crashing the server.
+
+#### 5.	Current Software Status
+
+Throughout the development phase, ten functionality requirements were either set up initially or rose as the project grew; as of April 25, 2024, eight out of ten requirements have been fully delivered. The file upload requirement and statistic display requirement have been partially delivered, and future work or refinement will be needed.
+
+Requirement ID	Requirement Description	Implemented?
+1	Registration - Users should be able to register in the system	Yes
+2	Login - Registered users should be able to log in to the system using their credentials	Yes
+3	Question Insertion / Deletion - The instructor user groups should be able to add/delete questions.	Yes
+4	Instruction Insertion / Deletion - The instructors should be able to create or delete instructions	Yes
+5	Assign Tags to Questions - The instructors should be able to assign tags to newly created questions	Yes
+6	Question Filter - All users should be able to filter homepage questions based on selected filters	Yes
+7	Chatbot Interaction - All user groups should be able to interact with the OpenAI ChatGPT model	Yes
+8	Feedback Collection - All user groups should have access to a feedback collection page	Yes
+9	View Statistics - The instructor group should be able to view user feedback statistics	No 
+10	File Upload - The instructor group should be able to upload lecture slides and assign questions to selected files	No
+
+Most of the requirements were successfully captured and delivered, enabling core functionalities such as assigning instructions to questions and interacting with the chatbot. 
+
+Another student designed and conducted an experiment involving the usage of this tool in first-year computer science labs. It appears that the initial requirements generally captured the essential details needed for the project. From limited verbal feedback from the students involved, the tool also served its purpose, which was to assist students in their learning journey.
+
+#### 6.	Architecture Overview
+
+The application utilizes Remix as its main framework and typescript as its programming language. Remix is a framework which is built on top of the popular React library. It allows a project to keep its front end and back end in one place without switching language. More specifically, the Remix Blues stack was used for an easier developing process. The stack integrates many popular tools, including tailwind, docker, prisma, fly.io, cypress, prettier and ESLint. For the database, the project uses Prisma to run PostgreSQL. 
+
+#### 7.	Installation Details
+
+Prerequisites
+Before initiating the project setup, ensure the following essential tools and
+applications are installed on your system:
+
+Web Browsers
+Google Chrome, Mozilla Firefox, or Microsoft Edge for testing and debugging.
+
+Integrated Development Environment (IDE)
+Visual Studio Code is recommended.
+
+Version Control System
+Git is necessary for source code management and team collaboration.
+
+Command Line Tools
+Terminal (macOS/Linux) or Command Prompt/PowerShell (Windows) for running
+scripts and managing the project.
+	
+Installation Steps
+
+Install Node.js and npm
+Download and install Node.js from the official Node.js website, which includes npm.
+The latest version can be found here.
+
+Install Docker
+The latest version of docker can be found here.
+
+Create Prisma Migration
 ```
-npx create-remix@latest --template remix-run/blues-stack
-```
-
-## What's in the stack
-
-- [Multi-region Fly app deployment](https://fly.io/docs/reference/scaling/) with [Docker](https://www.docker.com/)
-- [Multi-region Fly PostgreSQL Cluster](https://fly.io/docs/getting-started/multi-region-databases/)
-- Healthcheck endpoint for [Fly backups region fallbacks](https://fly.io/docs/reference/configuration/#services-http_checks)
-- [GitHub Actions](https://github.com/features/actions) for deploy on merge to production and staging environments
-- Email/Password Authentication with [cookie-based sessions](https://remix.run/utils/sessions#creatememorysessionstorage)
-- Database ORM with [Prisma](https://prisma.io)
-- Styling with [Tailwind](https://tailwindcss.com/)
-- End-to-end testing with [Cypress](https://cypress.io)
-- Local third party request mocking with [MSW](https://mswjs.io)
-- Unit testing with [Vitest](https://vitest.dev) and [Testing Library](https://testing-library.com)
-- Code formatting with [Prettier](https://prettier.io)
-- Linting with [ESLint](https://eslint.org)
-- Static Types with [TypeScript](https://typescriptlang.org)
-
-Not a fan of bits of the stack? Fork it, change it, and use `npx create-remix --template your/repo`! Make it your own.
-
-## Quickstart
-
-Click this button to create a [Gitpod](https://gitpod.io) workspace with the project set up, Postgres started, and Fly pre-installed
-
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/remix-run/blues-stack/tree/main)
-
-## Development
-
-- First run this stack's `remix.init` script and commit the changes it makes to your project.
-
-  ```sh
-  npx remix init
-  git init # if you haven't already
-  git add .
-  git commit -m "Initialize project"
-  ```
-
-- Start the Postgres Database in [Docker](https://www.docker.com/get-started):
-
-  ```sh
-  npm run docker
-  ```
-
-  > **Note:** The npm script will complete while Docker sets up the container in the background. Ensure that Docker has finished and your container is running before proceeding.
-
-- Initial setup:
-
-  ```sh
-  npm run setup
-  ```
-
-- Run the first build:
-
-  ```sh
-  npm run build
-  ```
-
-- Start dev server:
-
-  ```sh
-  npm run dev
-  ```
-
-This starts your app in development mode, rebuilding assets on file changes.
-
-The database seed script creates a new user with some data you can use to get started:
-
-- Email: `rachel@remix.run`
-- Password: `racheliscool`
-
-If you'd prefer not to use Docker, you can also use Fly's Wireguard VPN to connect to a development database (or even your production database). You can find the instructions to set up Wireguard [here](https://fly.io/docs/reference/private-networking/#install-your-wireguard-app), and the instructions for creating a development database [here](https://fly.io/docs/reference/postgres/).
-
-### Relevant code:
-
-This is a pretty simple note-taking app, but it's a good example of how you can build a full stack app with Prisma and Remix. The main functionality is creating users, logging in and out, and creating and deleting notes.
-
-- creating users, and logging in and out [./app/models/user.server.ts](./app/models/user.server.ts)
-- user sessions, and verifying them [./app/session.server.ts](./app/session.server.ts)
-- creating, and deleting notes [./app/models/note.server.ts](./app/models/note.server.ts)
-
-## Deployment
-
-This Remix Stack comes with two GitHub Actions that handle automatically deploying your app to production and staging environments.
-
-Prior to your first deployment, you'll need to do a few things:
-
-- [Install Fly](https://fly.io/docs/getting-started/installing-flyctl/)
-
-- Sign up and log in to Fly
-
-  ```sh
-  fly auth signup
-  ```
-
-  > **Note:** If you have more than one Fly account, ensure that you are signed into the same account in the Fly CLI as you are in the browser. In your terminal, run `fly auth whoami` and ensure the email matches the Fly account signed into the browser.
-
-- Create two apps on Fly, one for staging and one for production:
-
-  ```sh
-  fly apps create COSC_448_Blues_Template-7b75
-  fly apps create COSC_448_Blues_Template-7b75-staging
-  ```
-
-  > **Note:** Once you've successfully created an app, double-check the `fly.toml` file to ensure that the `app` key is the name of the production app you created. This Stack [automatically appends a unique suffix at init](https://github.com/remix-run/blues-stack/blob/4c2f1af416b539187beb8126dd16f6bc38f47639/remix.init/index.js#L29) which may not match the apps you created on Fly. You will likely see [404 errors in your Github Actions CI logs](https://community.fly.io/t/404-failure-with-deployment-with-remix-blues-stack/4526/3) if you have this mismatch.
-
-- Initialize Git.
-
-  ```sh
-  git init
-  ```
-
-- Create a new [GitHub Repository](https://repo.new), and then add it as the remote for your project. **Do not push your app yet!**
-
-  ```sh
-  git remote add origin <ORIGIN_URL>
-  ```
-
-- Add a `FLY_API_TOKEN` to your GitHub repo. To do this, go to your user settings on Fly and create a new [token](https://web.fly.io/user/personal_access_tokens/new), then add it to [your repo secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) with the name `FLY_API_TOKEN`.
-
-- Add a `SESSION_SECRET` to your fly app secrets, to do this you can run the following commands:
-
-  ```sh
-  fly secrets set SESSION_SECRET=$(openssl rand -hex 32) --app COSC_448_Blues_Template-7b75
-  fly secrets set SESSION_SECRET=$(openssl rand -hex 32) --app COSC_448_Blues_Template-7b75-staging
-  ```
-
-  > **Note:** When creating the staging secret, you may get a warning from the Fly CLI that looks like this:
-  >
-  > ```
-  > WARN app flag 'COSC_448_Blues_Template-7b75-staging' does not match app name in config file 'COSC_448_Blues_Template-7b75'
-  > ```
-  >
-  > This simply means that the current directory contains a config that references the production app we created in the first step. Ignore this warning and proceed to create the secret.
-
-  If you don't have openssl installed, you can also use [1password](https://1password.com/password-generator/) to generate a random secret, just replace `$(openssl rand -hex 32)` with the generated secret.
-
-- Create a database for both your staging and production environments. Run the following:
-
-  ```sh
-  fly postgres create --name COSC_448_Blues_Template-7b75-db
-  fly postgres attach --app COSC_448_Blues_Template-7b75 COSC_448_Blues_Template-7b75-db
-
-  fly postgres create --name COSC_448_Blues_Template-7b75-staging-db
-  fly postgres attach --app COSC_448_Blues_Template-7b75-staging COSC_448_Blues_Template-7b75-staging-db
-  ```
-
-  > **Note:** You'll get the same warning for the same reason when attaching the staging database that you did in the `fly set secret` step above. No worries. Proceed!
-
-Fly will take care of setting the `DATABASE_URL` secret for you.
-
-Now that everything is set up you can commit and push your changes to your repo. Every commit to your `main` branch will trigger a deployment to your production environment, and every commit to your `dev` branch will trigger a deployment to your staging environment.
-
-If you run into any issues deploying to Fly, make sure you've followed all of the steps above and if you have, then post as many details about your deployment (including your app name) to [the Fly support community](https://community.fly.io). They're normally pretty responsive over there and hopefully can help resolve any of your deployment issues and questions.
-
-### Multi-region deploys
-
-Once you have your site and database running in a single region, you can add more regions by following [Fly's Scaling](https://fly.io/docs/reference/scaling/) and [Multi-region PostgreSQL](https://fly.io/docs/getting-started/multi-region-databases/) docs.
-
-Make certain to set a `PRIMARY_REGION` environment variable for your app. You can use `[env]` config in the `fly.toml` to set that to the region you want to use as the primary region for both your app and database.
-
-#### Testing your app in other regions
-
-Install the [ModHeader](https://modheader.com/) browser extension (or something similar) and use it to load your app with the header `fly-prefer-region` set to the region name you would like to test.
-
-You can check the `x-fly-region` header on the response to know which region your request was handled by.
-
-## GitHub Actions
-
-We use GitHub Actions for continuous integration and deployment. Anything that gets into the `main` branch will be deployed to production after running tests/build/etc. Anything in the `dev` branch will be deployed to staging.
-
-## Testing
-
-### Cypress
-
-We use Cypress for our End-to-End tests in this project. You'll find those in the `cypress` directory. As you make changes, add to an existing file or create a new file in the `cypress/e2e` directory to test your changes.
-
-We use [`@testing-library/cypress`](https://testing-library.com/cypress) for selecting elements on the page semantically.
-
-To run these tests in development, run `npm run test:e2e:dev` which will start the dev server for the app as well as the Cypress client. Make sure the database is running in docker as described above.
-
-We have a utility for testing authenticated features without having to go through the login flow:
-
-```ts
-cy.login();
-// you are now logged in as a new user
+npx prisma migrate dev --name <migration-name>
 ```
 
-We also have a utility to auto-delete the user at the end of your test. Just make sure to add this in each test file:
-
-```ts
-afterEach(() => {
-  cy.cleanupUser();
-});
+Apply Migration
+```
+npx prisma migrate dev
+```
+	
+Generate Prisma Client
+```
+npx prisma generate
 ```
 
-That way, we can keep your local db clean and keep your tests isolated from one another.
+Install Project Dependencies
+Navigate to the project directory and execute npm install to install all necessary
+dependencies as listed in the package.json file.
 
-### Vitest
+Run the Project
 
-For lower level tests of utilities and individual components, we use `vitest`. We have DOM-specific assertion helpers via [`@testing-library/jest-dom`](https://testing-library.com/jest-dom).
+Start the application by executing npm run dev in the command line, which launches
+the development server and opens the application in your default web browser,
+typically accessible at http://localhost:3000
 
-### Type Checking
+Dependency Table
+@emotion/react	Provides React components for Emotion CSS-in-JS library, allowing styling of React components with Emotion.
+@emotion/styled	Provides styled components for Emotion CSS-in-JS library, enabling creation of styled components using Emotion.
+@heroicons/react	Provides a set of React components for Heroicons, offering a library of customizable SVG icons.
+@isaacs/express-prometheus-middleware	Middleware for Express.js to expose Prometheus metrics for monitoring Express applications.
+@mui/icons-material	Provides Material-UI icons as React components for easy integration with Material-UI designs.
+@mui/material	Provides Material-UI components for React, offering a library of pre-styled React components following Material Design guidelines.
+@prisma/client	Prisma client library for Node.js applications, facilitating database access and manipulation for applications using Prisma ORM.
+@remix-run/css-bundle	Bundle of CSS styles for Remix-run applications, optimizing CSS delivery for performance.
+@remix-run/express	Integration for using Remix-run with Express.js, allowing Remix-run applications to be served via Express.
+@remix-run/node	Node.js integration for Remix-run, enabling server-side rendering and routing for Remix-run applications.
+@remix-run/react	React integration for Remix-run, providing hooks and utilities for building React components within Remix-run applications.
+bcryptjs	Library for hashing passwords securely using bcrypt algorithm, commonly used for user authentication.
+chokidar	File watching library for Node.js, used for watching file changes during development.
+cloudinary	SDK for integrating with Cloudinary media management platform, offering tools for managing and delivering images and videos in web applications.
+compression	Middleware for Express.js to enable gzip compression for HTTP responses, reducing the size of responses for improved performance.
+cross-env	Utility for setting environment variables across different platforms in Node.js scripts.
+express	Web application framework for Node.js, providing a robust set of features for building web servers and APIs.
+formidable	Library for parsing form data in Node.js applications, particularly useful for handling file uploads.
+highlight.js	Syntax highlighting library for web development, providing tools for highlighting code syntax in various programming languages.
+isbot	Utility library for detecting bot user agents in web applications, useful for distinguishing between human users and bots.
+morgan	HTTP request logger middleware for Express.js, logging request details for debugging and monitoring purposes.
+multer	Middleware for Express.js for handling file uploads, particularly for processing multipart/form-data requests.
+openai	SDK for integrating with OpenAI API, providing tools for accessing and using OpenAI's language models and other AI capabilities.
+prismjs	Lightweight syntax highlighting library for web development, offering support for highlighting code syntax in various programming languages.
+prom-client	Library for instrumenting Node.js applications with Prometheus metrics, allowing monitoring of various application metrics.
+react	JavaScript library for building user interfaces, providing tools for creating reusable UI components.
+react-beautiful-dnd	React library for creating drag-and-drop interfaces, offering a simple and powerful API for implementing drag-and-drop functionality in React applications.
+react-dom	React library for working with the DOM, providing tools for rendering React components into the browser.
+react-masonry-css	React library for creating responsive masonry layouts, allowing for dynamic arrangement of elements in a grid layout.
+react-syntax-highlighter	React library for syntax highlighting, offering components for rendering code with syntax highlighting in React applications.
+source-map-support	Library for enhancing stack traces in Node.js applications with source maps, improving error debugging and logging.
+tiny-invariant	Tiny invariant assertion library for JavaScript, providing a lightweight way to enforce conditions in code.
 
-This project uses TypeScript. It's recommended to get TypeScript set up for your editor to get a really great in-editor experience with type checking and auto-complete. To run type checking across the whole project, run `npm run typecheck`.
+#### 8.	Known Bugs and Future Improvements
+#### 9.	Reflections
 
-### Linting
-
-This project uses ESLint for linting. That is configured in `.eslintrc.js`.
-
-### Formatting
-
-We use [Prettier](https://prettier.io/) for auto-formatting in this project. It's recommended to install an editor plugin (like the [VSCode Prettier plugin](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)) to get auto-formatting on save. There's also a `npm run format` script you can run to format all files in the project.
