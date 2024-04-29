@@ -1,8 +1,7 @@
 #### 1. Video Walkthrough
 
 #### 2.	Project Overview
-
-This project aims to create an AI chatbot specifically designed to support instructors in teaching introductory computer science topics, with potential adaptability to other teaching contexts. Leveraging the OpenAI API, particularly ChatGPT models, this chatbot operates according to predefined instructions provided by instructors. Its primary role involves engaging with students and providing guidance and explanations within the framework set by the instructor. Notably, it's tailored to avoid default responses that simply offer direct answers, creating a more interactive and personalized learning experience for students. Essentially, it serves as a virtual teaching assistant, enhancing the educational process through dynamic interaction and support.
+	This project aims to create an AI chatbot specifically designed to support instructors in teaching introductory computer science topics, with potential adaptability to other teaching contexts. Leveraging the OpenAI API, particularly ChatGPT models, this chatbot operates according to predefined instructions provided by instructors. Its primary role involves engaging with students and providing guidance and explanations within the framework set by the instructor. Notably, it's tailored to avoid default responses that simply offer direct answers, creating a more interactive and personalized learning experience for students. Essentially, it serves as a virtual teaching assistant, enhancing the educational process through dynamic interaction and support.
 
 #### 3.	User Groups and Scenarios
 
