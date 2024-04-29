@@ -121,7 +121,7 @@ dependencies as listed in the package.json file.
 
 #### Insert OpenAI API Key
 OpenAI API Key can be obtained here at https://openai.com/blog/openai-api.
-The API key should substitute the 
+The API key should be put inside the ```apiKey: "" ``` found in chat.tsx in routes folder.
 
 #### Run the Project
 Start the application by executing npm run dev in the command line, which launches
