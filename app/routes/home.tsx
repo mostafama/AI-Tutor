@@ -43,9 +43,9 @@ export default function NotesPage() {
           {/* Conditionally display other buttons based on userType */}
           {user.userType === 'INSTRUCTOR' && (
             <>
-              <Link to="/files" className="block p-4 text-xl text-blue-500">
+              {/* <Link to="/files" className="block p-4 text-xl text-blue-500">
                 + New File
-              </Link>
+              </Link> */}
               <Link to="/questions" className="block p-4 text-xl text-blue-500">
                 + New Question
               </Link>

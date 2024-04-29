@@ -30,7 +30,7 @@ export default function HomeIndex() {
 
   // Filter questions based on the selected tag
   const filteredQuestions = selectedTagId
-    ? questions.filter(question => question.tags?.some(tag => tag.id === selectedTagId))
+    ? questions.filter(question => question.tags?.some((tag: { id: number; }) => tag.id === selectedTagId))
     : questions;
 
   useEffect(() => {
