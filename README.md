@@ -68,7 +68,9 @@ Another student designed and conducted an experiment involving the usage of this
 
 The application utilizes Remix as its main framework and typescript as its programming language. Remix is a framework built on top of the popular React library. It allows a project to keep its front end and back end in one place without switching languages. More specifically, the Remix Blues stack was used for an easier developing process. The stack integrates many popular tools, including tailwind, docker, prisma, fly.io, cypress, prettier, and ESLint. For the database, the project uses Prisma to run PostgreSQL. 
 
+For the chatbot, the application used the OpenAI Assistants API, more information can be found here at https://platform.openai.com/docs/assistants/overview
 
+Inside the project app folder, all the backend logic is put inside the models folder; frontend pages can be found inside the routes folder. The styles folder contains .css style files that define the layout.
 
 # 7.	Installation Details
 
@@ -119,13 +121,18 @@ dependencies as listed in the package.json file.
 
 #### Insert OpenAI API Key
 OpenAI API Key can be obtained here at https://openai.com/blog/openai-api.
-The api key should substitue the 
+The API key should substitute the 
 
 #### Run the Project
 Start the application by executing npm run dev in the command line, which launches
 the development server and opens the application in your default web browser,
 typically accessible at http://localhost:3000
 
+#### Check the Database
+If you want to check out the Prisma Studio database, the following command can be run.
+```
+npx prisma studio
+```
 ### Dependency Table
 | Package Name                           | Description                                                                                                            |
 |---------------------------------------|------------------------------------------------------------------------------------------------------------------------|
@@ -160,6 +167,17 @@ typically accessible at http://localhost:3000
 | react-masonry-css                    | React library for creating responsive masonry layouts, allowing for dynamic arrangement of elements in a grid layout.    |
 | react-syntax-highlighter             | React library for syntax highlighting, offering components for rendering code with syntax highlighting in React applications. |
 
-# 8.	Known Bugs and Future Improvements
-# 9.	Reflections
+# 8. 	Future Deployment
+Due to limited time frame, the final version of this app has not been deployed. However, fly.io is well integrated withs the blue stack and can be used for future deployment if needed. More information of how to deploy on fly.io can be found here at https://fly.io/docs/apps/deploy/
+
+# 9.	Known Bugs and Future Improvements
+### Known Bugs
+- The instruction list cannot be empty when questions are added to the system
+- The home._index.tsx file contains warning on line 33.
+
+### Potential Future Improvements
+- Addition of the file upload system; right now, the add new file page is hidden. The files.tsx allows the user to upload files from the local machine to the server only; the assistant API needs to have access to such files.
+- Addition of admin user type; Admin can have access to stats page to see user feedbacks
+- Addition of question and instruction edit functionalities.
+- User account authentication logic
 
