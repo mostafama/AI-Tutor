@@ -196,7 +196,7 @@ Due to limited time frame, the final version of this app has not been deployed. 
 - User account authentication logic
 
 # 9.	MIT License
-Copyright (c) 2011-2024 GitHub Inc.
+Copyright (c) 2011-2024 Jerry Fan
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
