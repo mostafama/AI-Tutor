@@ -1,3 +1,6 @@
+// This file comes from the Remix starter template
+// The purpose is to create a new user session when a user logs in
+
 import type {
   ActionFunctionArgs,
   LoaderFunctionArgs,

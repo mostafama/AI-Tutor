@@ -1,3 +1,6 @@
+// This file comes from the Remix starter template
+// It is used to check the health of the application deployment
+
 // learn more: https://fly.io/docs/reference/configuration/#services-http_checks
 import type { LoaderFunctionArgs } from "@remix-run/node";
 

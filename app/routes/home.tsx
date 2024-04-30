@@ -1,3 +1,10 @@
+// This is the part of the main page for the app. It display the list of functions where the user can navigate to.
+// Based on the user type, the user will have different options to navigate to.
+// Only the instructor will have the ability to add questions and instructions.
+
+// Author: Jerry Fan
+// Date: 4/30/2024
+
 import { Form, Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
 
 import { requireUserId } from "~/session.server";
@@ -45,7 +52,8 @@ export default function NotesPage() {
             <>
               {/* <Link to="/files" className="block p-4 text-xl text-blue-500">
                 + New File
-              </Link> */}
+              </Link> */} 
+              {/* Commented out the New File button */}
               <Link to="/questions" className="block p-4 text-xl text-blue-500">
                 + New Question
               </Link>
@@ -53,6 +61,7 @@ export default function NotesPage() {
                 + New Instruction
               </Link>
               
+              {/* Give instructor the ability to add questions and instructions */}
               <hr />
             </>
           )}

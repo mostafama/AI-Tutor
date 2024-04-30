@@ -1,8 +1,16 @@
+// Purpose: Backend logic for question creation, deletion and retrival
+// Frontend: question.tsx, home.tsx
+
+// Author: Jerry Fan
+// Date: 4/30/2024
+
 import type { Instruction, Question, User, Tag } from "@prisma/client";
 import { ifError } from "node:assert";
 import { prisma } from "~/db.server";
 export type { Question, User, Instruction} from "@prisma/client";
 
+// Create a new question
+// Allows user to assign zero to many tags to a question, seperated by commas
 export async function createQuestion({
   title,
   body,
@@ -36,6 +44,7 @@ export async function createQuestion({
   return prisma.question.create({ data });
 }
 
+// Delete an existing question
 export function deleteQuestion({
   id,
   userId,
@@ -45,6 +54,7 @@ export function deleteQuestion({
   });
 }
 
+// Get a list of all questions
 export function getQuestionList() {
   return prisma.question.findMany({
     select: { id: true, title: true, body: true, instructionId: true, instruction: true, tags: true},
@@ -52,6 +62,7 @@ export function getQuestionList() {
   });
 }
 
+// Get a single question by its ID
 export function getQuestion({
   id,
 }: Pick<Question, "id">) {
@@ -61,6 +72,7 @@ export function getQuestion({
   });
 }
 
+// Filter question by selecting a tag
 export function getQuestionByTagId(tagId: number) {
   return prisma.tag.findUnique({
     where: { id: tagId },
@@ -68,6 +80,7 @@ export function getQuestionByTagId(tagId: number) {
   });
 }
 
+// Assign an instruction to a question
 export function assignInstruction({
   questionId,
   instructionId,
@@ -83,6 +96,7 @@ export function assignInstruction({
   });
 }
 
+// Update an existing question by changing its title, body, instruction, and tags
 export async function updateQuestion({
   id,
   title,

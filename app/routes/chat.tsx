@@ -1,4 +1,10 @@
-// src/components/Chat.tsx
+// Code for the chat page
+// If question ID is not specified, this page servers as a default chatbot where the user can ask the AI any questions.
+// If a question ID is specified, the AI will answer the question based on the question details.
+// Default instruction will be applied when the AI answers user's questions.
+
+// Author: Jerry Fan
+// Date: 4/30/2024
 import React, { useEffect, useState } from "react";
 import Message from "./Message";
 import OpenAI from 'openai';
@@ -8,8 +14,9 @@ import { useUser } from "~/utils";
 import { getInstructionList, createInstruction, deleteInstruction, setDefaultInstruction, getDefaultInstruction, Instruction } from "~/models/instruction.server";
 import { LoaderFunction, json } from "@remix-run/node";
 import { Question, getQuestion } from '~/models/question.server';
-import hljs from "highlight.js";
-import 'highlight.js/styles/github.css';
+import hljs from "highlight.js"; // This is the library that will highlight the code in the chat
+import 'highlight.js/styles/github.css'; // This style is just an example, you can choose any style from the available ones; The purpose is to highlight the code in the chat
+
 
 export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
@@ -49,6 +56,10 @@ const Chat: React.FC = () => {
   const user = useUser();
   const { questionBody, instructionContent } = useLoaderData<typeof loader>();
 
+  // Below is the code for fetching files from the server
+  // However, this code is not fully working, as to access server files in assitant API is not implemented
+  // It is commented out for now and only server as a reference
+
   // useEffect(() => {
   //   // Fetch files when the component mounts
   //   const fetchFiles = async () => {
@@ -65,9 +76,10 @@ const Chat: React.FC = () => {
   //   fetchFiles();
   // }, []);
 
+  // The code below is ultilizing the OpenAI Assistants API to create a chatbot where an instruciton can be assigned to it
   useEffect(() => {
     initChatBot();
-  }, []);
+  }, []); // Initialize the chatbot when the component mounts
 
   useEffect(() => {
     setMessages([
@@ -76,13 +88,16 @@ const Chat: React.FC = () => {
         isUser: false,
       },
     ]);
-  }, [assistant]);
+  }, [assistant]); // Set the initial message when the assistant is initialized
 
   useEffect(() => {
     // Set the textarea's content to questionBody when the component mounts or questionBody changes
     setInput(questionBody || "");
   }, [questionBody]);
 
+  // IMPORTANT: API key must be filled in for the chatbot to work
+  // The API key is not included in the code snippet for security reasons
+  // It is possible to save the key inside the .env file and access it using process.env.API_KEY
   const initChatBot = async () => {
     const openai = new OpenAI({
       apiKey: "", 
@@ -105,11 +120,13 @@ const Chat: React.FC = () => {
     setThread(thread);
   };
 
+  // Create a new message object
   const createNewMessage = (content: string, isUser: boolean) => {
     const newMessage = new MessageDto(isUser, content);
     return newMessage;
   };
 
+  // Send a message to the chatbot
   const handleSendMessage = async () => {
     messages.push(createNewMessage(input, true));
     setMessages([...messages]);

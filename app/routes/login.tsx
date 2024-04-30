@@ -1,3 +1,6 @@
+// This file comes from the Remix starter template
+// It handles the login function of the application
+
 import type {
   ActionFunctionArgs,
   LoaderFunctionArgs,

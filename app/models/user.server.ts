@@ -1,3 +1,6 @@
+// Purpose: Backend logic for user creation, verification, and retrieval
+// This file comes from the Remix starter template
+
 import type { Password, User } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { prisma } from "~/db.server";

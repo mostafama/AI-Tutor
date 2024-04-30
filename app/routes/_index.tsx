@@ -1,3 +1,12 @@
+// This is the main page of the app. It is the first page that users see when they visit the site.
+// This page displays the main content of the app, including the title, description, and buttons to sign up or log in.
+// The page also displays a background image with a color overlay to make the text more readable.
+// The background image is a stock photo of a network of computers, which is relevant to the theme of the app.
+// The page uses Tailwind CSS for styling and layout.
+
+// Author: Jerry Fan
+// Date: 4/30/2024
+
 import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 import '../styles/main.css';
@@ -13,7 +22,7 @@ export default function Index() {
         <div className="relative">
           <img
             className="absolute inset-0 h-full w-full object-cover"
-            src="/images/network.jpg"
+            src="/images/network.jpg" // Background image saved in public/images folder
             alt="Network"
           />
           <div className="absolute inset-0 bg-[color:rgba(27,167,254,0.5)] mix-blend-multiply" />
@@ -30,7 +39,7 @@ export default function Index() {
             </span>
             {user ? (
               <Link
-                to="/home"
+                to="/home" // Redirect to home page
                 className="mt-5 rounded-md bg-white px-4 py-2 text-base font-medium text-blue-700 shadow-sm hover:bg-blue-50"
               >
                 Continue as {user.email}

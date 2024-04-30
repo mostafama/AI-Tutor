@@ -1,3 +1,6 @@
+/* This is a basic example of a Masonry grid layout using Flexbox */
+/* It means to be applied to the homescreen question layout */
+/* Adjustments may be needed based on the actual layout and content */
 /* Base Masonry Grid Styles - Adjust margins to match header's */
 .my-masonry-grid {
   display: flex;

@@ -1,3 +1,8 @@
+// This is the file that will be served at the root of your app
+// It is going to display a list of questions and tags for the user to filter and to select a question to chat about
+
+// Author: Jerry Fan
+// Date: 4/30/2024
 import { Link, useLoaderData } from '@remix-run/react';
 import { json, LoaderFunction } from '@remix-run/node';
 import { Question } from "@prisma/client"; // Ensure this import is correct based on your file structure
@@ -30,8 +35,8 @@ export default function HomeIndex() {
 
   // Filter questions based on the selected tag
   const filteredQuestions = selectedTagId
-    ? questions.filter(question => question.tags?.some((tag: { id: number; }) => tag.id === selectedTagId))
-    : questions;
+    ? questions.filter(question => question.tags?.some((tag: { id: number; }) => tag.id === selectedTagId)) // Show only questions with the selected tag
+    : questions; // If no tag is selected, show all questions
 
   useEffect(() => {
     hljs.highlightAll();
@@ -88,7 +93,7 @@ export default function HomeIndex() {
             border: 'none',
             borderRadius: '5px',
             cursor: 'pointer',
-            transition: 'background-color 0.3s'
+            transition: 'background-color 0.3s' // Smooth color transition
           }}
         >
           Clear Filter

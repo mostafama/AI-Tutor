@@ -1,10 +1,20 @@
-// src/routes/feedback.tsx
+// This is the feedback form page that users will see when they click on the feedback link in the navigation bar.
+// The page contains a form with multiple questions for users to provide feedback on the tool.
+// Each option will be stored as a number value from 1 to 5, with 1 being the lowest and 5 being the highest.
+// Users can also provide additional comments or suggestions in a text area.
+// The data will be submitted to the server for processing and storage in the database.
+// In future development, it is recommended to add an admin panel to view and analyze the feedback data.
+
+// Author: Jerry Fan
+// Date: 4/30/2024
+
 import { ActionFunction, redirect } from "@remix-run/node";
 import { Form, Link, useActionData } from "@remix-run/react";
 import { createFeedback } from "~/models/feedback.server";
 import React from "react";
 import { useUser } from "~/utils";
 
+// Define the data structure for the feedback form
 interface FeedbackData {
   relevanceAccuracy: number;
   easeOfUse: number;
@@ -24,7 +34,7 @@ export const action: ActionFunction = async ({ request }) => {
     feedbackAssessment: Number(form.get("feedbackAssessment")),
     userSatisfaction: Number(form.get("userSatisfaction")),
     recommendationLikely: Number(form.get("recommendationLikely")),
-    additionalComments: form.get("additionalComments")?.toString() || "",
+    additionalComments: form.get("additionalComments")?.toString() || "", // The additional comments field is optional
   };
 
   const errors: Record<string, string> = {};
@@ -32,7 +42,7 @@ export const action: ActionFunction = async ({ request }) => {
   requiredFields.forEach(field => {
     const value = form.get(field);
     if (value === null || value.toString().trim() === "" || isNaN(Number(value))) {
-      errors[field] = "This field is required and must be a valid number.";
+      errors[field] = "This field is required and must be a valid number."; // Error message for required fields
     }
   });
 

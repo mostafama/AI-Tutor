@@ -1,4 +1,10 @@
-// src/routes/confirmation.tsx
+// This is the page that will be displayed after the user has submitted the feedback form. 
+// It will thank the user for their participation and may include additional content. 
+// The user will also have the option to return to the home page or log out.
+
+// Author: Jerry Fan
+// Date: 4/30/2024
+
 import { Form, Link } from "@remix-run/react";
 import React from "react";
 import { useUser } from "~/utils"; // Ensure this path is correct based on your project structure
@@ -30,7 +36,6 @@ export default function Confirmation() {
           </header>
           <div style={{ marginTop: '50px' }}>
         <h1 style={{ fontWeight: 'bold', fontSize: '32px', marginBottom: '20px' }}>Thank you for your participation!</h1>
-        {/* Add any additional content here */}
       </div>
         </div>
       );

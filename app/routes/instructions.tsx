@@ -1,3 +1,8 @@
+// This is the code for the instructions page. It displays a list of instructions and allows instructors to add, delete, and set a default instruction. 
+
+// Author: Jerry Fan
+// Date: 4/30/2024
+
 import { json, LoaderFunction, ActionFunction } from "@remix-run/node";
 import { useLoaderData, Link, Form, redirect, useFetcher } from "@remix-run/react";
 import { Key, ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from "react";
@@ -8,20 +13,21 @@ import { useUser } from "~/utils";
 import { Instruction } from "~/models/instruction.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const userId = await requireUserId(request);
-  const instructions = await getInstructionList(); // Remove the argument { userId }
-  const defaultInstruction = await getDefaultInstruction();
+  const userId = await requireUserId(request); // Get the user ID
+  const instructions = await getInstructionList(); // Get all instructions
+  const defaultInstruction = await getDefaultInstruction(); // Get the default instruction
   
-  return json({ instructions, defaultInstruction });
+  return json({ instructions, defaultInstruction }); // Return the instructions and default instruction as JSON
 };
 
 export const action: ActionFunction = async ({ request }) => {
-  const userId = await requireUserId(request);
-  const formData = await request.formData();
+  const userId = await requireUserId(request); // Get the user ID
+  const formData = await request.formData(); // Parse the form data
   const title = formData.get("title");
   const content = formData.get("content");
-  const actionType = formData.get("_action");
+  const actionType = formData.get("_action"); // Get the action type from the form data
 
+  // Perform the appropriate action based on the _action form field
   switch (actionType) {
     case "delete":
       const deleteId = formData.get("instructionId");
@@ -33,7 +39,7 @@ export const action: ActionFunction = async ({ request }) => {
     case "setDefault":
       const defaultId = formData.get("instructionId");
       if (typeof defaultId === "string") {
-        await setDefaultInstruction(defaultId);
+        await setDefaultInstruction(defaultId); // Set the default instruction
         return redirect("/instructions"); // Ensure redirect after setting default
       }
       break;
@@ -50,7 +56,7 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function InstructionsPage() {
-  const { instructions, defaultInstruction} = useLoaderData<typeof loader>();
+  const { instructions, defaultInstruction} = useLoaderData<typeof loader>(); // Ensure this matches the loader function
   const user = useUser();
   const fetcher = useFetcher();
 
@@ -60,7 +66,7 @@ export default function InstructionsPage() {
         <h1 className="text-3xl font-bold">
           <Link to="/">AICADEMY</Link>
         </h1>
-        <p>{user.userType}: {user.email}</p>
+        <p>{user.userType}: {user.email}</p> {/* Display user type and email */}
         <Form action="/logout" method="post">
           <Link to="/home">
             <button
@@ -101,9 +107,11 @@ export default function InstructionsPage() {
             </div>
             {user.userType === 'INSTRUCTOR' && (
               <div className="flex space-x-2 items-center opacity-0 group-hover:opacity-100">
+                {/* Only show the set default button if the instruction is not the default */}
                 <button name="_action" value="setDefault" type="button" title="Set as Default" onClick={() => fetcher.submit({ instructionId: instruction.id, _action: "setDefault" }, { method: "post" })}>
                   <StarIcon className={`h-6 w-6 ${instruction.isDefault ? "text-yellow-500" : "text-gray-400 hover:text-yellow-500"}`} />
                 </button>
+                {/* Only show the delete button if the instruction is not the default */}
                 <fetcher.Form method="post">
                   <input type="hidden" name="instructionId" value={instruction.id} />
                   <button name="_action" value="delete" type="submit" title="Delete Instruction">

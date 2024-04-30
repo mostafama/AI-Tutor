@@ -1,3 +1,10 @@
+// Purpose: Backend logic for the file upload
+// However, this function is not fully working, as to access server files in assitant API is not implemented
+
+// Frontend: file.tsx
+// Author: Jerry Fan
+// Date: 4/30/2024
+
 import type { File, User } from "@prisma/client";
 import { prisma } from "~/db.server";
 import { unstable_createFileUploadHandler, unstable_parseMultipartFormData, json } from "@remix-run/node";

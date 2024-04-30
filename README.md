@@ -101,6 +101,11 @@ The latest version can be found here.
 #### Install Docker
 The latest version of docker can be found here.
 
+#### Run Docker
+```
+npm run docker
+```
+
 #### Create Prisma Migration
 ```
 npx prisma migrate dev --name <migration-name>
@@ -117,7 +122,11 @@ npx prisma generate
 ```
 
 #### Install Project Dependencies
-Navigate to the project directory and execute npm install to install all necessary
+Navigate to the project directory and execute 
+```
+npm install
+```
+ to install all necessary
 dependencies as listed in the package.json file.
 
 #### Insert OpenAI API Key
@@ -134,6 +143,10 @@ If you want to check out the Prisma Studio database, the following command can b
 ```
 npx prisma studio
 ```
+
+#### Trouble Shooting
+In case the installation does not run as intended, check the Blue Stack document at https://github.com/remix-run/blues-stack or the Remix website for more information
+
 ### Dependency Table
 | Package Name                           | Description                                                                                                            |
 |---------------------------------------|------------------------------------------------------------------------------------------------------------------------|

@@ -1,3 +1,10 @@
+//  This page will handle the file upload and display the uploaded files
+// However, since the file upload functionality is not fully implemented, the page is excluded from the navigation menu
+// At current state, the file can be uploaded to the server; but the file cannot be accessed by the API
+
+// Author: Jerry Fan
+// Date: 4/30/2024
+
 import {
     json,
     unstable_createMemoryUploadHandler,
@@ -15,7 +22,7 @@ import {
   export const loader: LoaderFunction = async ({ request }) => {
     const userId = await requireUserId(request);
     const files = await listUserFiles(userId);
-    return json({ files });
+    return json({ files }); // Return the list of files uploaded by the user
   };
 
   export async function action({ request }: ActionFunctionArgs) {
@@ -50,9 +57,6 @@ import {
     );
 
     const userId = await requireUserId(request);
-    
-    
-    
   
     let files = formData.getAll("file") as NodeOnDiskFile[];
     return json({
@@ -64,6 +68,7 @@ import {
     });
   }
   
+  // This component will display the file upload form and the list of uploaded files
   export default function Component() {
     let { submit, isUploading, pdfs } = useFileUpload();
     const user = useUser();

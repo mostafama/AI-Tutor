@@ -1,4 +1,9 @@
-// file: app/routes/questions.tsx
+// The purpose of this file is to create a new page that will allow users to view, create, and delete questions.
+// Questions will be displayed in a list, and users will be able to create new questions with a title and content.
+
+// Author: Jerry Fan
+// Date: 4/30/2024
+
 import { json, LoaderFunction, ActionFunction } from "@remix-run/node";
 import { useLoaderData, Link, Form, redirect } from "@remix-run/react";
 import { requireUserId } from "~/session.server";
@@ -10,10 +15,13 @@ import { Question } from "@prisma/client";
 import { TrashIcon } from "@heroicons/react/20/solid";
 import { prisma } from "~/db.server";
 
+// Define the data types that will be used in the loader
 interface Instruction {
     id: string;
     title: string;
   }
+
+  // Define the data that will be loaded by the loader
   
   interface LoaderData {
     questions: Question[]; 
@@ -22,7 +30,7 @@ interface Instruction {
 
 export const loader: LoaderFunction = async ({ request }) => {
     // Removed courseId usage
-    const userId = await requireUserId(request);
+    const userId = await requireUserId(request); // Adjusted to use requireUserId
     const questions = await getQuestionList(); // Adjusted call to match updated backend logic
     const instructions  = await getInstructionList()
     const defaultInstruction = await getDefaultInstruction();

@@ -1,3 +1,6 @@
+/* This is an alternative example of a grid layout using CSS Grid */
+/* Either this or the masonry-grid layout can be used based on the design requirements */
+
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Creates three columns */

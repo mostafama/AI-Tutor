@@ -1,3 +1,5 @@
+// This file comes from the Remix starter template
+
 import { useMatches } from "@remix-run/react";
 import { useMemo } from "react";
 
